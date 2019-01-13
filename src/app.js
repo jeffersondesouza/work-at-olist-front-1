@@ -1,5 +1,4 @@
-
 import './main.css'
-import './components/my-counter';
+import './components/new-account-form';
 
 console.log('ok');
