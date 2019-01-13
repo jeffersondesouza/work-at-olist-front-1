@@ -44,8 +44,4 @@ describe('my-counter', (finish) => {
 
   });
 
-  /*
- 
- 
- */
 });
