@@ -21,19 +21,30 @@ describe('<new-account-form>', (finish) => {
 
   describe('when init the form component', () => {
 
-    it('should NAME and password input be empty', async () => {
-      const nameInput = await showroom.find('// #name');
+    it('should name and email inputs be empty', async () => {
+      const nameInput = await showroom.find('// #js-name');
       const innerText = await showroom.getProperty('value', nameInput);
       assert.equal(innerText, '');
 
 
-      const passwordInput = await showroom.find('// #password');
-      const innerPassword = await showroom.getProperty('value', passwordInput);
-      assert.equal(innerPassword, '');
+      const emailInput = await showroom.find('// #js-email');
+      const inneremail = await showroom.getProperty('value', emailInput);
+      assert.equal(inneremail, '');
+    });
+
+    it('should Password and confirm password be empty', async () => {
+      const password = await showroom.find('// #js-password');
+      const innerpassword = await showroom.getProperty('value', password);
+      assert.equal(innerpassword, '');
+
+
+      const confirmInput = await showroom.find('// #js-confirm-password');
+      const innerConfirm = await showroom.getProperty('value', confirmInput);
+      assert.equal(innerConfirm, '');
     });
 
 
-    it('should  the submit button must be disabled until the form is valid', async () => {
+    it('should The submit button must be disabled until the form is valid.', async () => {
       const submit = await showroom.find('// button');
       const disabled = await showroom.getProperty('disabled', submit);
       assert.equal(disabled, true);
@@ -43,12 +54,10 @@ describe('<new-account-form>', (finish) => {
 
 
   describe('when submit an black form', () => {
-    
-/*     it('should show Name and Email is required.', async () => {
-      const submit = await showroom.find('// #nameErros');
-      const disabled = await showroom.getProperty('disabled', submit);
-      assert.equal(disabled, true);
-    }); */
+
+    it('should show Name and Email is required.', async () => {
+
+    });
 
 
   });
