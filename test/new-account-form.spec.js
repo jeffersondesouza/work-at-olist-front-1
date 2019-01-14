@@ -1,5 +1,8 @@
+
 const assert = require('assert');
 const showroom = require('showroom/puppeteer')();
+
+
 
 describe('<new-account-form>', (finish) => {
 
@@ -17,6 +20,7 @@ describe('<new-account-form>', (finish) => {
 
   beforeEach(async () => {
     wrapper = await showroom.setTestSubject('new-account-form');
+    
   });
 
   describe('when init the form component', () => {
@@ -45,7 +49,7 @@ describe('<new-account-form>', (finish) => {
 
 
     it('should The submit button must be disabled until the form is valid.', async () => {
-      const submit = await showroom.find('// button');
+      const submit = await showroom.find('// #js-submit');
       const disabled = await showroom.getProperty('disabled', submit);
       assert.equal(disabled, true);
     });

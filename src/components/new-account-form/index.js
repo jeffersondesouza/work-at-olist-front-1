@@ -3,9 +3,7 @@
  * A form responsable to create new accounts, this is a reusable webcomponent 
  * @tag <new-account-form><new-account-form>
  */
-
 export default class NewAccountForm extends HTMLElement {
-
 
   constructor() {
     super();
@@ -22,7 +20,6 @@ export default class NewAccountForm extends HTMLElement {
   get max() {
     return this.getAttribute('max');
   }
-
 
   set value(newValue) {
     this.setAttribute('value', newValue);
@@ -44,11 +41,11 @@ export default class NewAccountForm extends HTMLElement {
    * @override
    */
   connectedCallback() {
-    this.init();
+    this.initShadowDom();
     this.addEventListeners();
   }
 
-  init() {
+  initShadowDom() {
     this.attachShadow({ mode: 'open' });
     this.shadowRoot.appendChild(this.template.content.cloneNode(true));
   }
@@ -135,8 +132,9 @@ export default class NewAccountForm extends HTMLElement {
         <input id="js-confirm-password" type="password" />
         <div class="ok">
         </div>
-        <button disabled>Criar conta</buttom>
-      </form>
+        <button disabled id="js-submit">Criar conta</buttom>
+        </form>
+
     `;
 
     return template;
