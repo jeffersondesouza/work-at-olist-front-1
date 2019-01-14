@@ -1,4 +1,4 @@
-class InputFeedback extends HTMLElement {
+export default class InputFeedback extends HTMLElement {
 
   constructor() {
     super();
@@ -20,7 +20,7 @@ class InputFeedback extends HTMLElement {
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
-    console.log({ name, oldValue, newValue });
+    // console.log({ name, oldValue, newValue });
   }
 
   get value() {
@@ -48,4 +48,4 @@ class InputFeedback extends HTMLElement {
   }
 }
 
-customElements.define('input-feedback', InputFeedback);
+window.customElements.define('input-feedback', InputFeedback);

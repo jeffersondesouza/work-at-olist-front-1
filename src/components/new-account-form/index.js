@@ -4,22 +4,19 @@
  * A form responsable to create new accounts, this is a reusable webcomponent 
  * @tag <new-account-form><new-account-form>
  */
-class NewAccountForm extends HTMLElement {
+export default class NewAccountForm extends HTMLElement {
 
   constructor() {
     super();
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
   get value() {
-    return this.getAttribute('value');
+    return this.getAttribute('value')
   }
 
-  get min() {
-    return this.getAttribute('min');
-  }
-
-  get max() {
-    return this.getAttribute('max');
+  get email() {
+    this.shadowRoot.querySelector('#jsEmail');
   }
 
   set value(newValue) {
@@ -30,24 +27,31 @@ class NewAccountForm extends HTMLElement {
     this.setAttribute('step', newValue);
   }
 
-  set min(newValue) {
-    this.setAttribute('min', newValue);
-  }
-
-  set max(newValue) {
-    this.setAttribute('max', newValue);
-  }
 
   static get observedAttributes() {
     return ['value'];
   }
-  
+
   /**
    * @override
    */
   connectedCallback() {
     this.initShadowDom();
-    this.addEventListeners();
+    this.initState();
+    this.addSubmitListeners();
+    this.addBlurListeners();
+  }
+
+  initState() {
+
+    if (!this.value) {
+      this.setAttribute('value', JSON.stringify({
+        name: '',
+        email: '',
+        password: '',
+        confirmPassword: ''
+      }));
+    }
   }
 
   initShadowDom() {
@@ -55,45 +59,32 @@ class NewAccountForm extends HTMLElement {
     this.shadowRoot.appendChild(this.template.content.cloneNode(true));
   }
 
-  addEventListeners() {
+  addSubmitListeners() {
+
+    this.shadowRoot.querySelector('form')
+      .addEventListener('submit', this.onSubmit);
+  }
+
+
+
+  addBlurListeners() {
+    this.shadowRoot.querySelector('#jsName')
+      .addEventListener('blur', (e) => {
+        console.log(e.target.value, e.target.name);
+      });
+  }
+
+  onSubmit(e) {
+    e.preventDefault();
+    console.log('submit', { value: JSON.parse(this.value) });
 
   }
 
 
-  increment() {
-    const step = +this.step || 1;
-    const newValue = +this.value + step;
-
-    if (this.max) {
-      this.value = (newValue > +this.max)
-        ? +this.max
-        : +newValue;
-    } else {
-      this.value = +newValue;
-    }
-
-    this.dispatchEvent(new CustomEvent('onincrement', {
-      detail: this.value
-    }));
-  }
-
-  decrement() {
-    const step = +this.step || 1;
-    const newValue = +this.value - step;
-
-    if (this.min) {
-      this.value = (newValue <= +this.min)
-        ? +this.min
-        : + newValue;
-    } else {
-      this.value = +newValue;
-    }
-  }
-
- 
 
   attributeChangedCallback(name, oldValue, newValue) {
-    this.displayVal.innerHTML = this.value;
+    console.log({ name, oldValue, newValue });
+
   }
 
 
@@ -112,33 +103,29 @@ class NewAccountForm extends HTMLElement {
 
         <div class="form__group">
           <label>Nome completo</label>
-          <input id="js-name" />
-          <input-feedback value="Error msg"><input-feedback>
+          <input name="name" id="jsName" />
+          <input-feedback id="feedback1" value="Error msg"><input-feedback>
         </div>
 
         <div class="form__group">
           <label>E-mail</label>
-          <input id="js-email" />
+          <input name="email" id="jsEmail" />
           <input-feedback><input-feedback>
         </div>
 
         <div class="form__group">
           <label>Senha</label>
-          <input id="js-password" type="password" />
+          <input name="password" id="jsPassword" type="password" />
           <password-feedback><password-feedback>
         </div>
        
         <div class="form__group">
-          <label>E-mail</label>
-          <input id="js-name" />
+          <label>Confirme sua senha</label>
+          <input name="confirmPassword" id="jsConfirmPassword" />
           <input-feedback><input-feedback>
         </div>
-        <input id="js-confirm-password" type="password" />
-        <div class="ok">
-        </div>
-        <button disabled id="js-submit">Criar conta</buttom>
+        <button  id="js-submit">Criar conta</buttom>
         </form>
-
     `;
 
     return template;
