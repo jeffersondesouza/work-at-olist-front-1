@@ -51,9 +51,9 @@ describe('<new-account-form>', (finish) => {
 
 
     it('should The submit button must be disabled until the form is valid.', async () => {
-      const submit = await showroom.find('// #js-submit');
+      const submit = await showroom.find('// #jsSubmit');
       const disabled = await showroom.getProperty('disabled', submit);
-      assert.equal(disabled, false);
+      assert.equal(disabled, true);
     });
 
 

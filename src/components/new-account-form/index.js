@@ -1,4 +1,5 @@
-//  import '../my-counter';
+import formHelper from '../../utils/form-helper';
+import { isValidForm } from '../../utils/form-validator';
 
 /**
  * A form responsable to create new accounts, this is a reusable webcomponent 
@@ -9,24 +10,27 @@ export default class NewAccountForm extends HTMLElement {
   constructor() {
     super();
     this.onSubmit = this.onSubmit.bind(this);
+    this.formSubmited = false;
   }
 
   get value() {
-    return this.getAttribute('value')
-  }
-
-  get email() {
-    this.shadowRoot.querySelector('#jsEmail');
+    return JSON.parse(this.getAttribute('value'));
   }
 
   set value(newValue) {
-    this.setAttribute('value', newValue);
+    this.setAttribute('value', JSON.stringify(newValue));
   }
 
-  set step(newValue) {
-    this.setAttribute('step', newValue);
+  setValue(newValue) {
+    this.value = {
+      ...this.value,
+      ...newValue
+    }
   }
 
+  get submitButton() {
+    return this.shadowRoot.querySelector('#jsSubmit');
+  }
 
   static get observedAttributes() {
     return ['value'];
@@ -37,20 +41,22 @@ export default class NewAccountForm extends HTMLElement {
    */
   connectedCallback() {
     this.initShadowDom();
-    this.initState();
+    this.initValueState();
     this.addSubmitListeners();
     this.addBlurListeners();
   }
 
-  initState() {
-
+  initValueState() {
     if (!this.value) {
-      this.setAttribute('value', JSON.stringify({
-        name: '',
-        email: '',
-        password: '',
-        confirmPassword: ''
-      }));
+
+      const value = JSON.stringify({
+        name: formHelper.buildParam({ valid: false }),
+        email: formHelper.buildParam({ valid: false }),
+        password: formHelper.buildParam({ valid: false }),
+        confirmPassword: formHelper.buildParam({ valid: false })
+      });
+
+      this.setAttribute('value', value);
     }
   }
 
@@ -60,23 +66,35 @@ export default class NewAccountForm extends HTMLElement {
   }
 
   addSubmitListeners() {
-
     this.shadowRoot.querySelector('form')
       .addEventListener('submit', this.onSubmit);
   }
 
 
+  updateFormValueParam(key, value){
+    this.value = {
+      ...this.value,
+      [key]: formHelper.updateParam(this.value.key, value)
+    }
+  }
 
   addBlurListeners() {
     this.shadowRoot.querySelector('#jsName')
       .addEventListener('blur', (e) => {
+
         console.log(e.target.value, e.target.name);
+        this.updateFormValueParam('name', e.target.value);
+
+        if (isValidForm(this.value)) {
+          this.submitButton.disabled = false;
+        }
+
       });
   }
 
   onSubmit(e) {
     e.preventDefault();
-    console.log('submit', { value: JSON.parse(this.value) });
+    console.log('submit', { value: this.value });
 
   }
 
@@ -124,7 +142,7 @@ export default class NewAccountForm extends HTMLElement {
           <input name="confirmPassword" id="jsConfirmPassword" />
           <input-feedback><input-feedback>
         </div>
-        <button  id="js-submit">Criar conta</buttom>
+        <button disabled id="jsSubmit">Criar conta</buttom>
         </form>
     `;
 
