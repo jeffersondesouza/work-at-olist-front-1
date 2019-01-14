@@ -1,3 +1,8 @@
+/* import '../src/components/new-account-form/index';
+*/
+
+
+
 export default {
   component: 'new-account-form',
   path: '/src/components/new-account-form/index.js',

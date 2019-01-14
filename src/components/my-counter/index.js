@@ -32,7 +32,7 @@
  * @return {type} Description.
  */
 
-export default class MyCounter extends HTMLElement {
+class MyCounter extends HTMLElement {
   constructor() {
     super();
 

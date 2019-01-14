@@ -1,9 +1,10 @@
+//  import '../my-counter';
 
 /**
  * A form responsable to create new accounts, this is a reusable webcomponent 
  * @tag <new-account-form><new-account-form>
  */
-export default class NewAccountForm extends HTMLElement {
+class NewAccountForm extends HTMLElement {
 
   constructor() {
     super();
@@ -37,6 +38,10 @@ export default class NewAccountForm extends HTMLElement {
     this.setAttribute('max', newValue);
   }
 
+  static get observedAttributes() {
+    return ['value'];
+  }
+  
   /**
    * @override
    */
@@ -85,9 +90,7 @@ export default class NewAccountForm extends HTMLElement {
     }
   }
 
-  static get observedAttributes() {
-    return ['value'];
-  }
+ 
 
   attributeChangedCallback(name, oldValue, newValue) {
     this.displayVal.innerHTML = this.value;
@@ -110,7 +113,7 @@ export default class NewAccountForm extends HTMLElement {
         <div class="form__group">
           <label>Nome completo</label>
           <input id="js-name" />
-          <input-feedback><input-feedback>
+          <input-feedback value="Error msg"><input-feedback>
         </div>
 
         <div class="form__group">
@@ -124,6 +127,7 @@ export default class NewAccountForm extends HTMLElement {
           <input id="js-password" type="password" />
           <password-feedback><password-feedback>
         </div>
+       
         <div class="form__group">
           <label>E-mail</label>
           <input id="js-name" />

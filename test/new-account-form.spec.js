@@ -10,6 +10,7 @@ describe('<new-account-form>', (finish) => {
 
   before(async () => {
     await showroom.start();
+
     // starts showroom server
   });
 
@@ -19,6 +20,7 @@ describe('<new-account-form>', (finish) => {
   });
 
   beforeEach(async () => {
+    
     wrapper = await showroom.setTestSubject('new-account-form');
     
   });
@@ -54,14 +56,22 @@ describe('<new-account-form>', (finish) => {
       assert.equal(disabled, true);
     });
 
+
+    it('should The submit button must be disabled until the form is valid.', async () => {
+      const feedback = await showroom.find('// input-feedback#input-feedback');
+      const value = await showroom.getProperty('value', feedback);
+      assert.equal(value, 'Error');
+    });
+
+    
   });
 
 
   describe('when submit an black form', () => {
 
-    it('should show Name and Email is required.', async () => {
+  /*   it('should show Name and Email is required.', async () => {
 
-    });
+    }); */
 
 
   });
