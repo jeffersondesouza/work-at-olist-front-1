@@ -1,5 +1,13 @@
 import formHelper from '../../utils/form-helper';
-import { isValidForm } from '../../utils/form-validator';
+import {
+  isValidForm,
+  requiredValidator,
+  emailValidator,
+  minLengthValidator,
+  characterValidator,
+  numberValidator,
+  matchConfirmationValidator
+} from '../../utils/form-validator';
 
 /**
  * A form responsable to create new accounts, this is a reusable webcomponent 
@@ -9,8 +17,13 @@ export default class NewAccountForm extends HTMLElement {
 
   constructor() {
     super();
+
+    this.onInputChange = this.onInputChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.formSubmited = false;
+    this.formValue = {};
+    this.confirPasswordError = false;
+
   }
 
   get value() {
@@ -19,13 +32,6 @@ export default class NewAccountForm extends HTMLElement {
 
   set value(newValue) {
     this.setAttribute('value', JSON.stringify(newValue));
-  }
-
-  setValue(newValue) {
-    this.value = {
-      ...this.value,
-      ...newValue
-    }
   }
 
   get submitButton() {
@@ -46,17 +52,35 @@ export default class NewAccountForm extends HTMLElement {
     this.addBlurListeners();
   }
 
+  /**
+   * @param @override 
+   */
+  attributeChangedCallback(name, oldValue, newValue) {
+  }
+
+
   initValueState() {
     if (!this.value) {
 
-      const value = JSON.stringify({
-        name: formHelper.buildParam({ valid: false }),
-        email: formHelper.buildParam({ valid: false }),
-        password: formHelper.buildParam({ valid: false }),
-        confirmPassword: formHelper.buildParam({ valid: false })
-      });
+      this.formValue = {
+        name: formHelper.buildParam({
+          value: '',
+          validators: { required: requiredValidator }
+        }),
+        email: formHelper.buildParam({
+          value: '',
+          validators: { required: requiredValidator, email: emailValidator }
+        }),
+        password: formHelper.buildParam({
+          value: '',
+          validators: { required: requiredValidator, minLength: minLengthValidator(6), character: characterValidator, number: numberValidator, }
+        }),
+        confirmPassword: formHelper.buildParam({
+          value: '',
+          validators: { required: requiredValidator }
+        })
+      };
 
-      this.setAttribute('value', value);
     }
   }
 
@@ -70,41 +94,56 @@ export default class NewAccountForm extends HTMLElement {
       .addEventListener('submit', this.onSubmit);
   }
 
-
-  updateFormValueParam(key, value){
-    this.value = {
-      ...this.value,
-      [key]: formHelper.updateParam(this.value.key, value)
-    }
-  }
-
   addBlurListeners() {
     this.shadowRoot.querySelector('#jsName')
-      .addEventListener('blur', (e) => {
+      .addEventListener('keyup', this.onInputChange, true);
 
-        console.log(e.target.value, e.target.name);
-        this.updateFormValueParam('name', e.target.value);
+    this.shadowRoot.querySelector('#jsEmail')
+      .addEventListener('keyup', this.onInputChange, true);
 
-        if (isValidForm(this.value)) {
-          this.submitButton.disabled = false;
-        }
+    this.shadowRoot.querySelector('#jsPassword')
+      .addEventListener('keyup', this.onInputChange, true);
 
-      });
+    this.shadowRoot.querySelector('#jsConfirmPassword')
+      .addEventListener('keyup', this.onInputChange, true);
+
+  }
+
+  onInputChange({ target }) {
+    const { value, name } = target;
+
+    this.formValue = formHelper.updateForm(this.formValue, name, value);
+
+    if (name.toLowerCase() === 'confirmPassword'.toLowerCase()) {
+      this.validateConfirmPassword()
+    }
+
+    if (isValidForm(this.formValue)) {
+      this.submitButton.disabled = false;
+    } else {
+      this.submitButton.disabled = true;
+    }
   }
 
   onSubmit(e) {
     e.preventDefault();
-    console.log('submit', { value: this.value });
 
+    console.log('formValue: ', this.formValue);
+    // setAttrbute value = this.formValue
   }
 
 
 
-  attributeChangedCallback(name, oldValue, newValue) {
-    console.log({ name, oldValue, newValue });
+  validateConfirmPassword() {
+    const macthError = matchConfirmationValidator(
+      this.formValue.confirmPassword.value,
+      this.formValue.password.value
+    );
+
+    this.formValue.confirmPassword.errors.matchConfirmation = macthError;
+    this.formValue.confirmPassword.valid = this.formValue.confirmPassword.valid && !macthError;
 
   }
-
 
 
 
@@ -139,7 +178,7 @@ export default class NewAccountForm extends HTMLElement {
        
         <div class="form__group">
           <label>Confirme sua senha</label>
-          <input name="confirmPassword" id="jsConfirmPassword" />
+          <input name="confirmPassword" id="jsConfirmPassword" type="password"/>
           <input-feedback><input-feedback>
         </div>
         <button disabled id="jsSubmit">Criar conta</buttom>

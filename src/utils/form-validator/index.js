@@ -4,3 +4,4 @@ export {default as emailValidator } from './has-email-error';
 export {default as minLengthValidator } from './has-min-length-error';
 export {default as characterValidator } from './has-character';
 export {default as numberValidator } from './has-number';
+export {default as matchConfirmationValidator } from './has-match-confirmation-error';
