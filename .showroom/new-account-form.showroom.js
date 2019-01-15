@@ -1,11 +1,11 @@
-/* import '../src/components/new-account-form/index';
+/* import '../src/components/singup-form/index';
 */
 
 
 
 export default {
-  component: 'new-account-form',
-  path: '/src/components/new-account-form/index.js',
+  component: 'singup-form',
+  path: '/src/components/singup-form/index.js',
   // events: ['onstart', 'ontimeout', 'ontick', 'onstop'],
   attributes: { value: '1', min: '-2', max: '2' },
   functions: {

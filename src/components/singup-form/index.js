@@ -11,7 +11,7 @@ import {
 
 /**
  * A form responsable to create new accounts, this is a reusable webcomponent 
- * @tag <new-account-form><new-account-form>
+ * @tag <singup-form><singup-form>
  */
 export default class NewAccountForm extends HTMLElement {
 
@@ -257,4 +257,4 @@ export default class NewAccountForm extends HTMLElement {
   }
 }
 
-window.customElements.define('new-account-form', NewAccountForm);
+window.customElements.define('singup-form', NewAccountForm);

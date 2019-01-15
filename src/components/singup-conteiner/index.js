@@ -1,6 +1,6 @@
 /**
  * A form responsable to create new accounts, this is a reusable webcomponent 
- * @tag <new-account-conteiner><new-account-conteiner>
+ * @tag <singup-container><singup-container>
  */
 export default class NewAccountContainer extends HTMLElement {
 
@@ -75,11 +75,11 @@ export default class NewAccountContainer extends HTMLElement {
         </header>  
 
         <div class="signup__form-block">
-          <new-account-form id="js-form"></new-account-form>
+          <singup-form id="js-form"></singup-form>
         </div>
         
         <div class="signup__feedback">
-          <new-account-feedback id="js-feedback"></new-account-feedback>
+          <singup-feedback id="js-feedback"></singup-feedback>
         </div>
 
       </div>
@@ -88,4 +88,4 @@ export default class NewAccountContainer extends HTMLElement {
   }
 }
 
-window.customElements.define('new-account-conteiner', NewAccountContainer);
+window.customElements.define('singup-container', NewAccountContainer);

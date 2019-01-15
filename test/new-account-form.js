@@ -4,7 +4,7 @@ const showroom = require('showroom/puppeteer')();
 
 
 
-describe('<new-account-form>', (finish) => {
+describe('<singup-form>', (finish) => {
 
   let wrapper;
 
@@ -21,7 +21,7 @@ describe('<new-account-form>', (finish) => {
 
   beforeEach(async () => {
 
-    wrapper = await showroom.setTestSubject('new-account-form');
+    wrapper = await showroom.setTestSubject('singup-form');
 
   });
 

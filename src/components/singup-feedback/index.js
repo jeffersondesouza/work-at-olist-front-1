@@ -23,4 +23,4 @@ export default class SignupFeedback extends HTMLElement {
   }
 }
 
-window.customElements.define('new-account-feedback', SignupFeedback);
+window.customElements.define('singup-feedback', SignupFeedback);
