@@ -1,4 +1,4 @@
-import './main.css'
+import './scss/main.scss';
 
 /**
  * import all custom web componentes to register and make them usable
@@ -10,4 +10,5 @@ import './components/input-feedback';
 import './components/password-feedback';
 import './components/password-strength';
 import './components/circles-spinner';
+import './components/logo-type';
 

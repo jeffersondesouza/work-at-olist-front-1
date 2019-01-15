@@ -55,6 +55,32 @@ export default class SignUpContainer extends HTMLElement {
 
     return `
       <style>
+        h1, h2{
+          margin:0
+        }
+
+        .signup{
+          background-color:${styleHelper.constants.whiteColor};
+          width: 515px;
+          height: 740px;
+          border: 3px solid #F2F2F2;
+          box-sizing: border-box;
+          padding: 6rem 7rem 4.8rem;
+
+          ${styleHelper.mixins.absCenter};
+        }
+
+        .signup__title{
+          margin-bottom:2.4rem;
+          text-align: center;
+        }
+        .signup__sub-title{
+          line-height: 3px;
+          text-aling:center;
+          font-size: 2.2rem;
+          margin-bottom:3.7rem;
+        }
+
       </style>
     `
   }
@@ -66,7 +92,8 @@ export default class SignUpContainer extends HTMLElement {
       ${this.style}
       <div class="signup">      
         <header>  
-          <h1>Work at Olist</h1>
+          <h1 class="signup__title"><logo-type></logo-type></h1>
+          <h2 class="signup__sub-title">Crie sua Conta</h2>
         </header>  
 
         <div class="signup__body">
