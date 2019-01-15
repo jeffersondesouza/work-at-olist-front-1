@@ -17,13 +17,11 @@ export default class NewAccountForm extends HTMLElement {
 
   constructor() {
     super();
-
     this.onInputChange = this.onInputChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.formSubmited = false;
     this.formValue = {};
     this.confirPasswordError = false;
-
   }
 
   get value() {
@@ -38,6 +36,41 @@ export default class NewAccountForm extends HTMLElement {
     return this.shadowRoot.querySelector('#jsSubmit');
   }
 
+  get name() {
+    return this.shadowRoot.querySelector('#jsName');
+  }
+
+  get email() {
+    return this.shadowRoot.querySelector('#jsEmail');
+  }
+
+  get password() {
+    return this.shadowRoot.querySelector('#jsPassword');
+  }
+
+  get confirmPassword() {
+    return this.shadowRoot.querySelector('#jsConfirmPassword');
+  }
+
+  get feedbackTemplateElements() {
+    return {
+      nameRequired: this.shadowRoot.querySelector('#jsName-required'),
+      emailRequired: this.shadowRoot.querySelector('#jsEmail-required'),
+      emailFormat: this.shadowRoot.querySelector('#jsEmail-email'),
+      passwordRequired: this.shadowRoot.querySelector('#jsPassword-required'),
+      passwordMin: this.shadowRoot.querySelector('#jsPassword-min'),
+      passwordNumber: this.shadowRoot.querySelector('#jsPassword-number'),
+      passwordChar: this.shadowRoot.querySelector('#jsPassword-char'),
+      confirmPasswordRequired: this.shadowRoot.querySelector('#jsConfirmPassword-required'),
+      confirmPasswordMatch: this.shadowRoot.querySelector('#jsConfirmPassword-match'),
+    }
+  }
+
+
+
+  /**
+   * @override
+   */
   static get observedAttributes() {
     return ['value'];
   }
@@ -58,10 +91,8 @@ export default class NewAccountForm extends HTMLElement {
   attributeChangedCallback(name, oldValue, newValue) {
   }
 
-
   initValueState() {
     if (!this.value) {
-
       this.formValue = {
         name: formHelper.buildParam({
           value: '',
@@ -95,18 +126,10 @@ export default class NewAccountForm extends HTMLElement {
   }
 
   addBlurListeners() {
-    this.shadowRoot.querySelector('#jsName')
-      .addEventListener('keyup', this.onInputChange, true);
-
-    this.shadowRoot.querySelector('#jsEmail')
-      .addEventListener('keyup', this.onInputChange, true);
-
-    this.shadowRoot.querySelector('#jsPassword')
-      .addEventListener('keyup', this.onInputChange, true);
-
-    this.shadowRoot.querySelector('#jsConfirmPassword')
-      .addEventListener('keyup', this.onInputChange, true);
-
+    this.name.addEventListener('keyup', this.onInputChange, true);
+    this.email.addEventListener('keyup', this.onInputChange, true);
+    this.password.addEventListener('keyup', this.onInputChange, true);
+    this.confirmPassword.addEventListener('keyup', this.onInputChange, true);
   }
 
   onInputChange({ target }) {
@@ -123,12 +146,24 @@ export default class NewAccountForm extends HTMLElement {
     } else {
       this.submitButton.disabled = true;
     }
+
+    console.log(this.formValue.password);
+
   }
 
   onSubmit(e) {
     e.preventDefault();
+    if (isValidForm(this.formValue)) {
+      console.log('formValue: ', this.formValue);
+    }
 
     console.log('formValue: ', this.formValue);
+
+    this.feedbackTemplateElements.nameRequired.hidden = !this.formValue.name.errors.required;
+    this.feedbackTemplateElements.emailRequired.hidden = !this.formValue.email.errors.required;
+    this.feedbackTemplateElements.confirmPasswordRequired.hidden = !this.formValue.confirmPassword.errors.required;
+
+
     // setAttrbute value = this.formValue
   }
 
@@ -146,10 +181,11 @@ export default class NewAccountForm extends HTMLElement {
   }
 
 
-
   disconnectedCallback() {
-    this.incrementBtn.removeEventListener('click', this.increment);
-    this.decrementBtn.removeEventListener('click', this.decrement);
+    this.name.removeEventListener('keyup', this.onInputChange);
+    this.email.removeEventListener('keyup', this.onInputChange);
+    this.password.removeEventListener('keyup', this.onInputChange);
+    this.confirmPassword.removeEventListener('keyup', this.onInputChange);
   }
 
   get template() {
@@ -161,27 +197,46 @@ export default class NewAccountForm extends HTMLElement {
         <div class="form__group">
           <label>Nome completo</label>
           <input name="name" id="jsName" />
-          <input-feedback id="feedback1" value="Error msg"><input-feedback>
+          <input-feedback hidden id="jsName-required" value="Por favor informe seu nome"><input-feedback>
         </div>
 
         <div class="form__group">
           <label>E-mail</label>
           <input name="email" id="jsEmail" />
-          <input-feedback><input-feedback>
+          <div>
+           <input-feedback hidden id="jsEmail-required" value="Por favor informe seu nome"><input-feedback>
+          </div>
+          <div>
+            <input-feedback hidden id="jsEmail-email" value="Por favor, informe um email com formato válido (exemplo@email.com)"><input-feedback>
+          </div>
         </div>
 
         <div class="form__group">
           <label>Senha</label>
           <input name="password" id="jsPassword" type="password" />
-          <password-feedback><password-feedback>
+          <div>
+           <input-feedback id="jsPassword-min" value="Pelo menos 6 caracteres"><input-feedback>
+          </div>
+          <div>
+            <input-feedback id="jsPassword-number" value="Pelo menos uma letra maiúscula"><input-feedback>
+          </div>
+          <div>
+            <input-feedback id="jsPassword-char" value="Pelo menos um numero"><input-feedback>
+          </div>
+
         </div>
-       
+        
         <div class="form__group">
           <label>Confirme sua senha</label>
-          <input name="confirmPassword" id="jsConfirmPassword" type="password"/>
-          <input-feedback><input-feedback>
+          <input id="jsConfirmPassword" name="confirmPassword" type="password"/>
+          <div>
+            <input-feedback hidden id="jsConfirmPassword-required" value="Por favor, confirme sua Senha"><input-feedback>
+          </div>
+          <div>
+            <input-feedback hidden id="jsConfirmPassword-match" value="Error msg"><input-feedback>
+          </div>
         </div>
-        <button disabled id="jsSubmit">Criar conta</buttom>
+        <button id="jsSubmit">Criar conta</buttom>
         </form>
     `;
 
