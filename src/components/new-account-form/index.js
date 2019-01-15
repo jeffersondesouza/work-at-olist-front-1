@@ -130,6 +130,14 @@ export default class NewAccountForm extends HTMLElement {
     this.email.addEventListener('keyup', this.onInputChange, true);
     this.password.addEventListener('keyup', this.onInputChange, true);
     this.confirmPassword.addEventListener('keyup', this.onInputChange, true);
+
+    this.email.addEventListener('blur', () => {
+      this.feedbackTemplateElements.emailRequired.setAttribute(
+        'value',
+        (this.formValue.email.errors.email) ? 'Informe um email em formato válido (ex: exemplo@email.com)' : ''
+      );
+    });
+
   }
 
   onInputChange({ target }) {
@@ -147,7 +155,6 @@ export default class NewAccountForm extends HTMLElement {
       this.submitButton.disabled = true;
     }
 
-    console.log(this.formValue.password);
 
   }
 
@@ -159,9 +166,24 @@ export default class NewAccountForm extends HTMLElement {
 
     console.log('formValue: ', this.formValue);
 
-    this.feedbackTemplateElements.nameRequired.hidden = !this.formValue.name.errors.required;
-    this.feedbackTemplateElements.emailRequired.hidden = !this.formValue.email.errors.required;
-    this.feedbackTemplateElements.confirmPasswordRequired.hidden = !this.formValue.confirmPassword.errors.required;
+    this.feedbackTemplateElements.nameRequired.setAttribute(
+      'value',
+      (this.formValue.name.errors.required) ? 'Por favor informe seu nome' : ''
+    );
+
+
+
+    this.feedbackTemplateElements.emailRequired.setAttribute(
+      'value',
+      (this.formValue.email.errors.required) ? 'Por favor informe seu email' : ''
+    );
+
+    this.feedbackTemplateElements.confirmPasswordRequired.setAttribute(
+      'value',
+      (this.formValue.confirmPassword.errors.required) ? 'Por favor, confrime sua senha' : ''
+    );
+
+
 
 
     // setAttrbute value = this.formValue
@@ -197,46 +219,34 @@ export default class NewAccountForm extends HTMLElement {
         <div class="form__group">
           <label>Nome completo</label>
           <input name="name" id="jsName" />
-          <input-feedback hidden id="jsName-required" value="Por favor informe seu nome"><input-feedback>
+          <input-feedback id="jsName-required" value=''><input-feedback>
         </div>
 
         <div class="form__group">
           <label>E-mail</label>
           <input name="email" id="jsEmail" />
           <div>
-           <input-feedback hidden id="jsEmail-required" value="Por favor informe seu nome"><input-feedback>
-          </div>
-          <div>
-            <input-feedback hidden id="jsEmail-email" value="Por favor, informe um email com formato válido (exemplo@email.com)"><input-feedback>
+           <input-feedback id="jsEmail-required" value="Por favor informe seu nome"><input-feedback>
           </div>
         </div>
 
         <div class="form__group">
           <label>Senha</label>
           <input name="password" id="jsPassword" type="password" />
-          <div>
-           <input-feedback id="jsPassword-min" value="Pelo menos 6 caracteres"><input-feedback>
-          </div>
-          <div>
-            <input-feedback id="jsPassword-number" value="Pelo menos uma letra maiúscula"><input-feedback>
-          </div>
-          <div>
-            <input-feedback id="jsPassword-char" value="Pelo menos um numero"><input-feedback>
-          </div>
-
+          <password-feedback></password-feedback>
         </div>
         
         <div class="form__group">
           <label>Confirme sua senha</label>
           <input id="jsConfirmPassword" name="confirmPassword" type="password"/>
           <div>
-            <input-feedback hidden id="jsConfirmPassword-required" value="Por favor, confirme sua Senha"><input-feedback>
-          </div>
-          <div>
-            <input-feedback hidden id="jsConfirmPassword-match" value="Error msg"><input-feedback>
+            <input-feedback id="jsConfirmPassword-required" value="Por favor, confirme sua Senha"><input-feedback>
           </div>
         </div>
-        <button id="jsSubmit">Criar conta</buttom>
+  
+        <div>
+          <button id="jsSubmit">Criar conta</buttom>
+        <div>
         </form>
     `;
 
