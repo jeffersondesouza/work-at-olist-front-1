@@ -16,14 +16,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jeffersondesouza/work-at-olist-front.git"
+    "url": "git+https://github.com/jeffersondesouza/work-at-olist-test.git"
   },
   "author": "jeffersondesouza",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jeffersondesouza/work-at-olist-front/issues"
+    "url": "https://github.com/jeffersondesouza/work-at-olist-test/issues"
   },
-  "homepage": "https://github.com/jeffersondesouza/work-at-olist-front#readme",
   "devDependencies": {
     "@babel/core": "^7.2.2",
     "@babel/polyfill": "^7.2.5",
