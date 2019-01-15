@@ -1,3 +1,6 @@
+/**
+ * @tag <password-feedback><password-feedback>
+ */
 export default class PasswordFeedback extends HTMLElement {
 
   constructor() {
@@ -25,6 +28,11 @@ export default class PasswordFeedback extends HTMLElement {
   }
 
   setErrosFeedBack(name, oldValue, hasError) {
+
+    if (name !== 'errors') {
+      this.feedbackElements[name].setAttribute('valid', !JSON.parse(hasError))
+    }
+
     if (JSON.parse(hasError) === true) {
       this.feedbackElements[name].classList.add('feeback-error');
       this.feedbackElements[name].classList.remove('feeback-success');
@@ -73,28 +81,16 @@ export default class PasswordFeedback extends HTMLElement {
     }
   }
 
-  get style() {
-    return `
-      <style>
-          .feeback-success{
-            background-color:green;
-          }
-          .feeback-error{
-            background-color:red;
-          }
-      </style>
-    `
-  }
-
   get template() {
     return `
-      ${this.style}
       <div>
         <password-strength id="js-errors"></password-strength>
-        
-        <div id="js-lengtherror">6</div> 
-        <div id="js-capitalcaseerror">1m</div> 
-        <div id="js-numbererror">1n</div> 
+
+        <input-feedback id="js-lengtherror" showstatus="true" value="Pelo menos 6 caracteres"></input-feedback>
+
+        <input-feedback id="js-capitalcaseerror" showstatus="true" value="Pelo menos 1 letra maiúscula"></input-feedback>     
+
+        <input-feedback id="js-numbererror" showstatus="true" value="Pelo menos 1 número"></input-feedback>
       </div>
     `;
   }
