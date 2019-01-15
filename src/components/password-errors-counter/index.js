@@ -5,47 +5,64 @@ export default class PasswordErrorsCounter extends HTMLElement {
   }
 
   static get observedAttributes() {
-    return ['value'];
+    return ['total'];
   }
 
   connectedCallback() {
     this.initShadowDom();
-    this.feedback = this.value;
   }
 
   initShadowDom() {
     let shadowRoot = this.attachShadow({ mode: 'open' });
     shadowRoot.innerHTML = this.template;
+
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
-    console.log('input feed: ', newValue);
-    
-    if(this.shadowRoot){
+    if (this.shadowRoot) {
       this.feedback = newValue;
     }
   }
 
-  get value() {
-    return this.getAttribute('value');
+  get total() {
+    return this.getAttribute('total');
   }
 
-  set value(newValue) {
-    this.setAttribute('value', newValue);
+  set total(newValue) {
+    this.setAttribute('total', newValue);
   }
 
-  get feedback() {
-    return this.shadowRoot.querySelector('#input-feedback');
-  }
+  get style() {
+    return `
+      <style>
+          .counter{
+            display:flex;
+          }
 
-  set feedback(msg) {
-    return this.feedback.innerHTML = msg || '';
-  }
+          .counter__bar{
+            width: 119.67px;
+            height: 8px;
+            background-color: #EAEAF4;
+            border-radius: 1rem;
+          }
+          
+          .counter__bar:not(:last-child){
+            margin-right:.5rem;
+          }
 
+
+      </style>
+    `
+  }
+  
   get template() {
     return `
-      <div id="input-feedback" class="input-feedback">
-          Error
+    ${this.style}
+
+      <div class="counter">
+          <div class="counter__bar"></div>
+          <div class="counter__bar"></div>
+          <div class="counter__bar"></div>
       </div>
     `;
   }
