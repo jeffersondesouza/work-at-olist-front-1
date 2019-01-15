@@ -93,10 +93,12 @@ export default class InputFeedback extends HTMLElement {
         .feedback{
           display: flex;
           align-items:center;
+          line-height: 26px;
+          font-size: 16px;
         }
         
         .feedback__status{
-          background-color: ${styleHelper.constants.grayColor}
+          background-color: #EAEAF4;
           height: 10px;
           margin-right:5px;
           width: 10px;

@@ -83,10 +83,14 @@ export default class PasswordFeedback extends HTMLElement {
     }
   }
 
+
+
+
   get template() {
     return `
-      <div>
-        <password-strength id="js-errors"></password-strength>
+      <div class="password">
+        
+        <password-strength id="js-errors" class="password__strength"></password-strength>
 
         <input-feedback id="js-lengtherror" showstatus="true" value="Pelo menos 6 caracteres"></input-feedback>
 

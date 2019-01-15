@@ -219,48 +219,74 @@ export default class NewAccountForm extends HTMLElement {
 
     return `
       <style>
-      .border--error{
-         border: none;
-         border: 2px solid ${styleHelper.constants.errorColor};
-       }
 
-       .border--success{
-          border: none;
-          border: 2px solid ${styleHelper.constants.successColor};
-      }
-      .form{
-        width:35.7rem;
-      }
-      .form__group{
-        display:flex;
-        flex-direction:column;
-      }
-      .form__label{
-        line-height: 2.6rem;
-        font-size: 1.6rem;
-        color: ${styleHelper.constants.labelColor};
-      }
+        .form{
+          width:35.7rem;
+        }
 
-      .form__input{
-        background: ${styleHelper.constants.whiteColor};
-        border: 1px solid ${styleHelper.constants.grayColor2};
-        
-        box-sizing: border-box;
-        box-shadow: inset 0px 3px 3px rgba(0, 0, 0, 0.05);
-        line-height: 3rem;
-        font-size: 1.6rem;
-        text-indent: 1.6rem;
-        color: ${styleHelper.constants.grayDark1Color};
-        padding: 6px 2px;
-      }
+        .form__group{
+          display:flex;
+          flex-direction:column;
+          margin-bottom:2.4rem;
+        }
 
-      btn{
+        .form__action{
+          padding-top:1.4rem;
+        }
 
-      }
+        .form__label{
+          line-height: 2.6rem;
+          font-size: 1.6rem;
+          color: ${styleHelper.constants.labelColor};
+        }
 
-      .btn--primary{
+        .form__input{
+          background: ${styleHelper.constants.whiteColor};
+          border: 1px solid ${styleHelper.constants.grayColor2};
+          
+          box-sizing: border-box;
+          box-shadow: inset 0px 3px 3px rgba(0, 0, 0, 0.05);
+          line-height: 3rem;
+          font-size: 1.6rem;
+          text-indent: 1.6rem;
+          color: ${styleHelper.constants.grayDark1Color};
+          padding: 6px 2px;
+        }
 
-      }
+        .form__input:focus{
+          outline:none;
+        }
+
+        .btn{
+          outline: none;
+          border: none;      
+          background-color: ${styleHelper.constants.successColor};
+          color: ${styleHelper.constants.whiteColor};
+          font-weight: 900;
+          width:100%;
+          height:5.2rem;
+          font-size:1.6rem;
+          line-height: 26px;
+          cursor:pointer;
+        }
+
+        .btn:hover{
+          background-color: ${styleHelper.constants.successDarkColor};
+        }
+
+        .btn:disabled{
+          background-color: ${styleHelper.constants.successColor};
+          cursor:default;
+        }
+
+        .border--error{
+          border: 1px solid ${styleHelper.constants.errorColor};
+        }
+
+        .border--success{
+          border: 1px solid ${styleHelper.constants.successColor};
+        }
+
       
       </style>
     `
@@ -294,8 +320,8 @@ export default class NewAccountForm extends HTMLElement {
           <input class="form__input" id="js-confirm-password" name="confirmPassword" type="password"/>
         </div>
   
-        <div>
-          <button class="btn btn--primary" disabled id="js-submit">Criar conta</buttom>
+        <div class="form__action">
+          <button class="btn" disabled id="js-submit">Criar conta</buttom>
         <div>
         </form>
     `;
