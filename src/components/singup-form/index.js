@@ -227,7 +227,41 @@ export default class NewAccountForm extends HTMLElement {
        .border--success{
           border: none;
           border: 2px solid ${styleHelper.constants.successColor};
-        }
+      }
+      .form{
+        width:35.7rem;
+      }
+      .form__group{
+        display:flex;
+        flex-direction:column;
+      }
+      .form__label{
+        line-height: 2.6rem;
+        font-size: 1.6rem;
+        color: ${styleHelper.constants.labelColor};
+      }
+
+      .form__input{
+        background: ${styleHelper.constants.whiteColor};
+        border: 1px solid ${styleHelper.constants.grayColor2};
+        
+        box-sizing: border-box;
+        box-shadow: inset 0px 3px 3px rgba(0, 0, 0, 0.05);
+        line-height: 3rem;
+        font-size: 1.6rem;
+        text-indent: 1.6rem;
+        color: ${styleHelper.constants.grayDark1Color};
+        padding: 6px 2px;
+      }
+
+      btn{
+
+      }
+
+      .btn--primary{
+
+      }
+      
       </style>
     `
   }
@@ -240,28 +274,28 @@ export default class NewAccountForm extends HTMLElement {
       <form class="form">  
     
         <div class="form__group">
-          <label>Nome completo</label>
-          <input name="name" id="js-name" />
+          <label class="form__label">Nome completo</label>
+          <input class="form__input" name="name" id="js-name" />
         </div>
 
         <div class="form__group">
-          <label>E-mail</label>
-          <input name="email" id="js-email" />
+          <label class="form__label">E-mail</label>
+          <input class="form__input" name="email" id="js-email" />
         </div>
 
         <div class="form__group">
-          <label>Senha</label>
-          <input name="password" id="js-password" type="password" />
+          <label class="form__label">Senha</label>
+          <input class="form__input" name="password" id="js-password" type="password" />
           <password-feedback id="js-password-feedback" min="6" minCaptals="1" max="2"></password-feedback>
         </div>
         
         <div class="form__group">
-          <label>Confirme sua senha</label>
-          <input id="js-confirm-password" name="confirmPassword" type="password"/>
+          <label class="form__label">Confirme sua senha</label>
+          <input class="form__input" id="js-confirm-password" name="confirmPassword" type="password"/>
         </div>
   
         <div>
-          <button disabled id="js-submit">Criar conta</buttom>
+          <button class="btn btn--primary" disabled id="js-submit">Criar conta</buttom>
         <div>
         </form>
     `;
