@@ -75,7 +75,7 @@ export default class PasswordErrorsCounter extends HTMLElement {
           .counter__bar{
             width: 119.67px;
             height: 8px;
-            background-color: ${styleHelper.constants.grayColor}
+            background-color: ${styleHelper.constants.grayColor};
             border-radius: 1rem;
           }
 
@@ -84,19 +84,19 @@ export default class PasswordErrorsCounter extends HTMLElement {
           }
 
           .counter__bar--0{
-            background-color: ${styleHelper.constants.grayColor}
+            background-color: ${styleHelper.constants.grayColor};
           }
 
           .counter__bar--1{
-            background-color: #F79682;
+            background-color: ${styleHelper.constants.errorColor};
           }
 
           .counter__bar--2{
-            background-color: #F7BC1C;
+            background-color: ${styleHelper.constants.warningColor};
           }
 
           .counter__bar--3{
-            background-color: #1FE6A8;
+            background-color: ${styleHelper.constants.successColor};
           }
 
       </style>
