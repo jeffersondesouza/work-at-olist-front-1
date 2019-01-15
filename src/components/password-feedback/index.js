@@ -1,3 +1,5 @@
+import styleHelper from '../../utils/style-helper';
+
 /**
  * @tag <password-feedback><password-feedback>
  */

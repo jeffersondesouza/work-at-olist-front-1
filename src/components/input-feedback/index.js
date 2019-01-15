@@ -1,3 +1,5 @@
+import styleHelper from '../../utils/style-helper';
+
 /**
  * @tag <input-feedback><input-feedback>
  */
@@ -94,7 +96,7 @@ export default class InputFeedback extends HTMLElement {
         }
         
         .feedback__status{
-          background-color: #EAEAF4;
+          background-color: ${styleHelper.constants.grayColor}
           height: 10px;
           margin-right:5px;
           width: 10px;

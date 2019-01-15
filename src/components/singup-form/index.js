@@ -1,4 +1,6 @@
 import formHelper from '../../utils/form-helper';
+import styleHelper from '../../utils/style-helper';
+
 import {
   isValidForm,
   requiredValidator,
@@ -219,12 +221,12 @@ export default class NewAccountForm extends HTMLElement {
       <style>
       .border--error{
          border: none;
-         border: 2px solid #F79682;
+         border: 2px solid ${styleHelper.constants.errorColor};
        }
 
        .border--success{
           border: none;
-          border: 2px solid #1FE6A8;
+          border: 2px solid ${styleHelper.constants.successColor};
         }
       </style>
     `

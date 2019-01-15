@@ -1,3 +1,5 @@
+import styleHelper from '../../utils/style-helper';
+
 /**
  * @tag <password-strength><password-strength>
  */
@@ -73,7 +75,7 @@ export default class PasswordErrorsCounter extends HTMLElement {
           .counter__bar{
             width: 119.67px;
             height: 8px;
-            background-color: #EAEAF4;
+            background-color: ${styleHelper.constants.grayColor}
             border-radius: 1rem;
           }
 
@@ -82,7 +84,7 @@ export default class PasswordErrorsCounter extends HTMLElement {
           }
 
           .counter__bar--0{
-            background-color: #EAEAF4;
+            background-color: ${styleHelper.constants.grayColor}
           }
 
           .counter__bar--1{

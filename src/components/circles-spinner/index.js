@@ -1,3 +1,5 @@
+import styleHelper from '../../utils/style-helper';
+
 /**
  * @tag <circles-spinner><circles-spinner>
  */
