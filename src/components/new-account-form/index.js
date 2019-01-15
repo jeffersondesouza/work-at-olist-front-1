@@ -136,8 +136,6 @@ export default class NewAccountForm extends HTMLElement {
   }
 
   renderInputValidation(formValueParam, domEl) {
-
-
     if (formValueParam.valid) {
       domEl.classList.add('border--success');
       domEl.classList.remove('border--error');
@@ -152,7 +150,7 @@ export default class NewAccountForm extends HTMLElement {
     const { value, name } = target;
 
     this.formValue = formHelper.updateForm(this.formValue, name, value);
-  
+
     if (isValidForm(this.formValue)) {
       this.submitButton.disabled = false;
     } else {
@@ -164,7 +162,9 @@ export default class NewAccountForm extends HTMLElement {
   onSubmit(e) {
     e.preventDefault();
     if (isValidForm(this.formValue)) {
-      console.log('formValue: ', this.formValue);
+      this.dispatchEvent(new CustomEvent('onsubmit', {
+        detail: formHelper.getFormValue(this.formValue),
+      }));
     }
   }
 
@@ -177,7 +177,7 @@ export default class NewAccountForm extends HTMLElement {
   }
 
   get submitButton() {
-    return this.shadowRoot.querySelector('#jsSubmit');
+    return this.shadowRoot.querySelector('#js-submit');
   }
 
   get nameEl() {
@@ -201,7 +201,6 @@ export default class NewAccountForm extends HTMLElement {
   }
 
   get style() {
-
     // error - #F79682
     // warning - #F7BC1C
     // success - #1FE6A8
@@ -250,7 +249,7 @@ export default class NewAccountForm extends HTMLElement {
         </div>
   
         <div>
-          <button disabled id="jsSubmit">Criar conta</buttom>
+          <button disabled id="js-submit">Criar conta</buttom>
         <div>
         </form>
     `;
