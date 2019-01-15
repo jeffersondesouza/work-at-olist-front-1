@@ -1,4 +1,4 @@
-export default class InputFeedback extends HTMLElement {
+export default class PasswordErrorsCounter extends HTMLElement {
 
   constructor() {
     super();
@@ -51,4 +51,4 @@ export default class InputFeedback extends HTMLElement {
   }
 }
 
-window.customElements.define('input-feedback', InputFeedback);
+window.customElements.define('password-errors-counter', PasswordErrorsCounter);

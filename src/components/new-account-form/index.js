@@ -52,6 +52,11 @@ export default class NewAccountForm extends HTMLElement {
     return this.shadowRoot.querySelector('#jsConfirmPassword');
   }
 
+  get passwordFeedback() {
+    return this.shadowRoot.querySelector('#jsPasswordFeedback');
+  }
+  
+
   get feedbackTemplateElements() {
     return {
       nameRequired: this.shadowRoot.querySelector('#jsName-required'),
@@ -62,8 +67,6 @@ export default class NewAccountForm extends HTMLElement {
       confirmPasswordMatch: this.shadowRoot.querySelector('#jsConfirmPassword-match'),
     }
   }
-
-
 
   /**
    * @override
@@ -152,7 +155,11 @@ export default class NewAccountForm extends HTMLElement {
       this.submitButton.disabled = true;
     }
 
-
+    if(name==='password'){
+      this.passwordFeedback.setAttribute('lengtherror', this.formValue.password.errors.minLength);
+      this.passwordFeedback.setAttribute('capitalcaseerror', this.formValue.password.errors.character);
+      this.passwordFeedback.setAttribute('numbererror', this.formValue.password.errors.number); 
+    }
   }
 
   onSubmit(e) {
@@ -161,14 +168,11 @@ export default class NewAccountForm extends HTMLElement {
       console.log('formValue: ', this.formValue);
     }
 
-    console.log('formValue: ', this.formValue);
 
     this.feedbackTemplateElements.nameRequired.setAttribute(
       'value',
       (this.formValue.name.errors.required) ? 'Por favor informe seu nome' : ''
     );
-
-
 
     this.feedbackTemplateElements.emailRequired.setAttribute(
       'value',
@@ -180,12 +184,7 @@ export default class NewAccountForm extends HTMLElement {
       (this.formValue.confirmPassword.errors.required) ? 'Por favor, confrime sua senha' : ''
     );
 
-
-
-
-    // setAttrbute value = this.formValue
   }
-
 
 
   validateConfirmPassword() {
@@ -230,8 +229,10 @@ export default class NewAccountForm extends HTMLElement {
         <div class="form__group">
           <label>Senha</label>
           <input name="password" id="jsPassword" type="password" />
-          <password-feedback></password-feedback>
-        </div>
+
+          <password-feedback id="jsPasswordFeedback" min="6" minCaptals="1" max="2"></password-feedback>
+
+          </div>
         
         <div class="form__group">
           <label>Confirme sua senha</label>
@@ -252,3 +253,52 @@ export default class NewAccountForm extends HTMLElement {
 }
 
 window.customElements.define('new-account-form', NewAccountForm);
+
+
+
+
+/* 
+
+
+get template() {
+    return `
+      <style>
+        .password-feedback__group{
+          display:flex;
+          align-items: center;
+        }
+        .input-feedback{
+          background-color: #EAEAF4;
+          border-radius:100px;
+          height:10px;
+          margin-right: .5rem;
+          width:10px;
+        }  
+
+        .input-feedback--valid{
+          background-color: #1FE6A8;
+        }
+
+        .input-feedback--invalid{
+          background-color: #F79682;
+        }
+
+      </style>
+
+      <div id="password-feedback" >
+        <div class="password-feedback__group">
+          <div id="jsPassword-min"  class="input-feedback"></div>
+          <input-feedback value="Pelo menos 6 caracteres" ></input-feedback>
+        </div>
+        <div class="password-feedback__group">
+          <div id="jsPassword-number" class="input-feedback"></div>
+          <input-feedback value="Pelo menos uma letra maiúscula" ></input-feedback>
+        </div>
+        <div class="password-feedback__group">
+          <div id="jsPassword-char" class="input-feedback"></div>
+          <input-feedback value="Pelo menos um numero"></input-feedback>
+        </div>
+      </div>
+    `;
+  }*/
+  
