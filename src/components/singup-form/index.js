@@ -168,18 +168,20 @@ export default class NewAccountForm extends HTMLElement {
       detail: formHelper.getFormValue(this.formValue),
     }));
 
+
+   
+
     if (isValidForm(this.formValue)) {
 
       this.dispatchEvent(new CustomEvent('onsubmit', {
         detail: formHelper.getFormValue(this.formValue),
       }));
 
-      this.submitButton.replaceChild(
-        document.createElement('circles-spinner').innerHTML,
-        this.submitButton.firstChild()
-      );
       this.submitButton.disabled = true;
-
+      this.submitButton.replaceChild(
+        document.createElement('circles-spinner'),
+        this.submitButton.firstChild
+      );
     }
   }
 
@@ -324,7 +326,7 @@ export default class NewAccountForm extends HTMLElement {
         </div>
   
         <div class="form__action">
-          <button class="btn" disabled id="js-submit">Criar Conta</buttom>
+          <button disabled class="btn" id="js-submit">Criar Conta</buttom>
         <div>
         </form>
     `;
