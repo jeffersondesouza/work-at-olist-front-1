@@ -11,7 +11,6 @@ export default class InputFeedback extends HTMLElement {
   connectedCallback() {
     this.initShadowDom();
     this.feedback = this.value;
-
   }
 
   initShadowDom() {
@@ -20,7 +19,11 @@ export default class InputFeedback extends HTMLElement {
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
-    // console.log({ name, oldValue, newValue });
+    console.log('input feed: ', newValue);
+    
+    if(this.shadowRoot){
+      this.feedback = newValue;
+    }
   }
 
   get value() {
