@@ -1,3 +1,6 @@
+/**
+ * @tag <password-strength><password-strength>
+ */
 export default class PasswordErrorsCounter extends HTMLElement {
 
   constructor() {

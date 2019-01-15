@@ -1,3 +1,6 @@
+/**
+ * @tag <password-feedback><password-feedback>
+ */
 export default class PasswordFeedback extends HTMLElement {
 
   constructor() {

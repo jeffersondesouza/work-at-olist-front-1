@@ -1,3 +1,6 @@
+/**
+ * @tag <singup-feedback><singup-feedback>
+ */
 export default class SignupFeedback extends HTMLElement {
 
   connectedCallback() {

@@ -1,3 +1,6 @@
+/**
+ * @tag <input-feedback><input-feedback>
+ */
 export default class InputFeedback extends HTMLElement {
 
   constructor() {

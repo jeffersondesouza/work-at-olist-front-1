@@ -1,11 +1,11 @@
 /**
- * A form responsable to create new accounts, this is a reusable webcomponent 
  * @tag <singup-container><singup-container>
  */
-export default class NewAccountContainer extends HTMLElement {
+export default class SignUpContainer extends HTMLElement {
 
   constructor() {
     super();
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
   /**
@@ -33,7 +33,11 @@ export default class NewAccountContainer extends HTMLElement {
   }
 
   onSubmit(value) {
-    console.log({ value });
+    setTimeout(() => {
+      console.log({ value });
+      this.formEl.hidden = true;
+      this.feedbackEl.hidden = false;
+    }, 2000);
 
   }
 
@@ -41,7 +45,9 @@ export default class NewAccountContainer extends HTMLElement {
     return this.shadowRoot.querySelector('#js-form');
   }
 
-
+  get feedbackEl() {
+    return this.shadowRoot.querySelector('#js-feedback');
+  }
 
   get style() {
 
@@ -71,16 +77,14 @@ export default class NewAccountContainer extends HTMLElement {
       ${this.style}
       <div class="signup">      
         <header>  
-         <h1>Work at Olist</h1>
+          <h1>Work at Olist</h1>
         </header>  
 
-        <div class="signup__form-block">
+        <div class="signup__body">
           <singup-form id="js-form"></singup-form>
-        </div>
-        
-        <div class="signup__feedback">
           <singup-feedback id="js-feedback"></singup-feedback>
         </div>
+        
 
       </div>
     `;
@@ -88,4 +92,4 @@ export default class NewAccountContainer extends HTMLElement {
   }
 }
 
-window.customElements.define('singup-container', NewAccountContainer);
+window.customElements.define('singup-container', SignUpContainer);

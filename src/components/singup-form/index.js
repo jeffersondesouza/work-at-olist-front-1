@@ -10,7 +10,6 @@ import {
 } from '../../utils/form-validator';
 
 /**
- * A form responsable to create new accounts, this is a reusable webcomponent 
  * @tag <singup-form><singup-form>
  */
 export default class NewAccountForm extends HTMLElement {
@@ -86,6 +85,7 @@ export default class NewAccountForm extends HTMLElement {
   }
 
   addSubmitListeners() {
+    
     this.shadowRoot.querySelector('form')
       .addEventListener('submit', this.onSubmit);
   }
@@ -161,6 +161,9 @@ export default class NewAccountForm extends HTMLElement {
 
   onSubmit(e) {
     e.preventDefault();
+    this.dispatchEvent(new CustomEvent('onsubmit', {
+      detail: formHelper.getFormValue(this.formValue),
+    }));
     if (isValidForm(this.formValue)) {
       this.dispatchEvent(new CustomEvent('onsubmit', {
         detail: formHelper.getFormValue(this.formValue),
@@ -249,7 +252,7 @@ export default class NewAccountForm extends HTMLElement {
         </div>
   
         <div>
-          <button disabled id="js-submit">Criar conta</buttom>
+          <button id="js-submit">Criar conta</buttom>
         <div>
         </form>
     `;
