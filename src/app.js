@@ -4,6 +4,6 @@ import './main.css'
 import './components/new-account-form';
 import './components/input-feedback';
 import './components/password-feedback';
-import './components/password-errors-counter';
+import './components/password-strength';
 
 

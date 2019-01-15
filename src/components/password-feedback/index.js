@@ -90,7 +90,7 @@ export default class PasswordFeedback extends HTMLElement {
     return `
       ${this.style}
       <div>
-        <password-errors-counter id="js-errors"></password-errors-counter>
+        <password-strength id="js-errors"></password-strength>
         
         <div id="js-lengtherror">6</div> 
         <div id="js-capitalcaseerror">1m</div> 
