@@ -69,11 +69,19 @@ export default class NewAccountContainer extends HTMLElement {
 
     template.innerHTML = `
       ${this.style}
-      <div>
-        <h1>Work at Olist</h1>
-        <div>
+      <div class="signup">      
+        <header>  
+         <h1>Work at Olist</h1>
+        </header>  
+
+        <div class="signup__form-block">
           <new-account-form id="js-form"></new-account-form>
         </div>
+        
+        <div class="signup__feedback">
+          <new-account-feedback id="js-feedback"></new-account-feedback>
+        </div>
+
       </div>
     `;
     return template;

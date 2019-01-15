@@ -5,6 +5,7 @@ import './main.css'
  */
 import './components/new-account-conteiner';
 import './components/new-account-form';
+import './components/new-account-feedback';
 import './components/input-feedback';
 import './components/password-feedback';
 import './components/password-strength';
