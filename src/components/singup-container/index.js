@@ -61,8 +61,7 @@ export default class SignUpContainer extends HTMLElement {
 
         .signup{
           background-color:${styleHelper.constants.whiteColor};
-          width: 515px;
-          height: 740px;
+          max-height: 74.0rem;
           border: 3px solid #F2F2F2;
           box-sizing: border-box;
           padding: 6rem 7rem 4.8rem;

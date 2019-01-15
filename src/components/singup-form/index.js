@@ -174,7 +174,10 @@ export default class NewAccountForm extends HTMLElement {
         detail: formHelper.getFormValue(this.formValue),
       }));
 
-      this.submitButton.appendChild(document.createElement('circles-spinner'));
+      this.submitButton.replaceChild(
+        document.createElement('circles-spinner').innerHTML,
+        this.submitButton.firstChild()
+      );
       this.submitButton.disabled = true;
 
     }
@@ -222,6 +225,7 @@ export default class NewAccountForm extends HTMLElement {
 
         .form{
           width:35.7rem;
+
         }
 
         .form__group{
@@ -231,7 +235,7 @@ export default class NewAccountForm extends HTMLElement {
         }
 
         .form__action{
-          padding-top:1.4rem;
+          padding-top:1rem;
         }
 
         .form__label{
@@ -286,7 +290,6 @@ export default class NewAccountForm extends HTMLElement {
         .border--success{
           border: 1px solid ${styleHelper.constants.successColor};
         }
-
       
       </style>
     `
@@ -321,7 +324,7 @@ export default class NewAccountForm extends HTMLElement {
         </div>
   
         <div class="form__action">
-          <button class="btn" disabled id="js-submit">Criar conta</buttom>
+          <button class="btn" disabled id="js-submit">Criar Conta</buttom>
         <div>
         </form>
     `;

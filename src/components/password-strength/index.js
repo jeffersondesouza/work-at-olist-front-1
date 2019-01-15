@@ -71,7 +71,6 @@ export default class PasswordErrorsCounter extends HTMLElement {
           .counter{
             display:flex;
             padding: .8rem 0 1.6rem;
-
           }
 
           .counter__bar{
