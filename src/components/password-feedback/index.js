@@ -28,10 +28,15 @@ export default class PasswordFeedback extends HTMLElement {
     if (JSON.parse(hasError) === true) {
       this.feedbackElements[name].classList.add('feeback-error');
       this.feedbackElements[name].classList.remove('feeback-success');
-    }else{
+    } else {
       this.feedbackElements[name].classList.add('feeback-success');
       this.feedbackElements[name].classList.remove('feeback-error');
     }
+
+    this.feedbackElements.errors.setAttribute('total', this.feedbackElements.feebackSuccess.length);
+
+
+
   }
 
   get lengtherror() {
@@ -64,6 +69,7 @@ export default class PasswordFeedback extends HTMLElement {
       lengtherror: this.shadowRoot.getElementById('js-lengtherror'),
       capitalcaseerror: this.shadowRoot.getElementById('js-capitalcaseerror'),
       numbererror: this.shadowRoot.getElementById('js-numbererror'),
+      feebackSuccess: this.shadowRoot.querySelectorAll('.feeback-success'),
     }
   }
 
