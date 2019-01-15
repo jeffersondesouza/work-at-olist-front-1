@@ -61,11 +61,6 @@ export default class PasswordErrorsCounter extends HTMLElement {
 
 
   get style() {
-
-    // error - #F79682
-    // warning - #F7BC1C
-    // success - #1FE6A8
-
     return `
       <style>
           .counter{

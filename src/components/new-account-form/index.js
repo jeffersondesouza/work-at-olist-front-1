@@ -24,49 +24,6 @@ export default class NewAccountForm extends HTMLElement {
     this.confirPasswordError = false;
   }
 
-  get value() {
-    return JSON.parse(this.getAttribute('value'));
-  }
-
-  set value(newValue) {
-    this.setAttribute('value', JSON.stringify(newValue));
-  }
-
-  get submitButton() {
-    return this.shadowRoot.querySelector('#jsSubmit');
-  }
-
-  get name() {
-    return this.shadowRoot.querySelector('#jsName');
-  }
-
-  get email() {
-    return this.shadowRoot.querySelector('#jsEmail');
-  }
-
-  get password() {
-    return this.shadowRoot.querySelector('#jsPassword');
-  }
-
-  get confirmPassword() {
-    return this.shadowRoot.querySelector('#jsConfirmPassword');
-  }
-
-  get passwordFeedback() {
-    return this.shadowRoot.querySelector('#jsPasswordFeedback');
-  }
-  
-
-  get feedbackTemplateElements() {
-    return {
-      nameRequired: this.shadowRoot.querySelector('#jsName-required'),
-      emailRequired: this.shadowRoot.querySelector('#jsEmail-required'),
-      emailFormat: this.shadowRoot.querySelector('#jsEmail-email'),
-      passwordRequired: this.shadowRoot.querySelector('#jsPassword-required'),
-      confirmPasswordRequired: this.shadowRoot.querySelector('#jsConfirmPassword-required'),
-      confirmPasswordMatch: this.shadowRoot.querySelector('#jsConfirmPassword-match'),
-    }
-  }
 
   /**
    * @override
@@ -126,17 +83,16 @@ export default class NewAccountForm extends HTMLElement {
   }
 
   addBlurListeners() {
-    this.name.addEventListener('keyup', this.onInputChange, true);
-    this.email.addEventListener('keyup', this.onInputChange, true);
-    this.password.addEventListener('keyup', this.onInputChange, true);
-    this.confirmPassword.addEventListener('keyup', this.onInputChange, true);
+    this.nameEl.addEventListener('keyup', this.onInputChange, true);
+    this.emailEl.addEventListener('keyup', this.onInputChange, true);
+    this.passwordEl.addEventListener('keyup', this.onInputChange, true);
+    this.confirmPasswordEl.addEventListener('keyup', this.onInputChange, true);
 
-    this.email.addEventListener('blur', () => {
-      this.feedbackTemplateElements.emailRequired.setAttribute(
-        'value',
-        (this.formValue.email.errors.email) ? 'Informe um email em formato válido (ex: exemplo@email.com)' : ''
-      );
-    });
+    this.nameEl.addEventListener('blur', this.onInputChange, true);
+    this.emailEl.addEventListener('blur', this.onInputChange, true);
+    this.passwordEl.addEventListener('blur', this.onInputChange, true);
+    this.confirmPasswordEl.addEventListener('blur', this.onInputChange, true);
+
 
   }
 
@@ -146,7 +102,7 @@ export default class NewAccountForm extends HTMLElement {
     this.formValue = formHelper.updateForm(this.formValue, name, value);
 
     if (name.toLowerCase() === 'confirmPassword'.toLowerCase()) {
-      this.validateConfirmPassword()
+      this.validateConfirmPassword();
     }
 
     if (isValidForm(this.formValue)) {
@@ -155,11 +111,45 @@ export default class NewAccountForm extends HTMLElement {
       this.submitButton.disabled = true;
     }
 
-    if(name==='password'){
+
+    if (name === 'name') {
+      if (this.formValue.name.valid) {
+        this.nameEl.classList.add('border--success');
+        this.nameEl.classList.remove('border--error');
+      } else {
+        this.nameEl.classList.add('border--error');
+        this.nameEl.classList.remove('border--success');
+      }
+    }
+
+    //
+
+    if (name === 'email') {
+      if (this.formValue.email.valid) {
+        this.emailEl.classList.add('border--success');
+        this.emailEl.classList.remove('border--error');
+      } else {
+        this.emailEl.classList.add('border--error');
+        this.emailEl.classList.remove('border--success');
+      }
+    }
+
+
+    if (name === 'password') {
       this.passwordFeedback.setAttribute('lengtherror', this.formValue.password.errors.minLength);
       this.passwordFeedback.setAttribute('capitalcaseerror', this.formValue.password.errors.character);
-      this.passwordFeedback.setAttribute('numbererror', this.formValue.password.errors.number); 
+      this.passwordFeedback.setAttribute('numbererror', this.formValue.password.errors.number);
+
+      if (this.formValue.password.valid) {
+        this.passwordEl.classList.add('border--success');
+        this.passwordEl.classList.remove('border--error');
+      } else {
+        this.passwordEl.classList.add('border--error');
+        this.passwordEl.classList.remove('border--success');
+      }
     }
+
+
   }
 
   onSubmit(e) {
@@ -167,22 +157,6 @@ export default class NewAccountForm extends HTMLElement {
     if (isValidForm(this.formValue)) {
       console.log('formValue: ', this.formValue);
     }
-
-
-    this.feedbackTemplateElements.nameRequired.setAttribute(
-      'value',
-      (this.formValue.name.errors.required) ? 'Por favor informe seu nome' : ''
-    );
-
-    this.feedbackTemplateElements.emailRequired.setAttribute(
-      'value',
-      (this.formValue.email.errors.required) ? 'Por favor informe seu email' : ''
-    );
-
-    this.feedbackTemplateElements.confirmPasswordRequired.setAttribute(
-      'value',
-      (this.formValue.confirmPassword.errors.required) ? 'Por favor, confrime sua senha' : ''
-    );
 
   }
 
@@ -196,22 +170,101 @@ export default class NewAccountForm extends HTMLElement {
     this.formValue.confirmPassword.errors.matchConfirmation = macthError;
     this.formValue.confirmPassword.valid = this.formValue.confirmPassword.valid && !macthError;
 
+      console.log(this.formValue.confirmPassword.valid);
+      
+    if (this.formValue.confirmPassword.valid) {
+      this.confirmPasswordEl.classList.add('border--success');
+      this.confirmPasswordEl.classList.remove('border--error');
+    } else {
+      this.confirmPasswordEl.classList.add('border--error');
+      this.confirmPasswordEl.classList.remove('border--success');
+    }
   }
 
 
   disconnectedCallback() {
-    this.name.removeEventListener('keyup', this.onInputChange);
-    this.email.removeEventListener('keyup', this.onInputChange);
-    this.password.removeEventListener('keyup', this.onInputChange);
-    this.confirmPassword.removeEventListener('keyup', this.onInputChange);
+    this.nameEl.removeEventListener('keyup', this.onInputChange);
+    this.emailEl.removeEventListener('keyup', this.onInputChange);
+    this.passwordEl.removeEventListener('keyup', this.onInputChange);
+    this.confirmPasswordEl.removeEventListener('keyup', this.onInputChange);
+  }
+
+
+
+
+  get value() {
+    return JSON.parse(this.getAttribute('value'));
+  }
+
+  set value(newValue) {
+    this.setAttribute('value', JSON.stringify(newValue));
+  }
+
+  get submitButton() {
+    return this.shadowRoot.querySelector('#jsSubmit');
+  }
+
+  get nameEl() {
+    return this.shadowRoot.querySelector('#jsName');
+  }
+
+  get emailEl() {
+    return this.shadowRoot.querySelector('#jsEmail');
+  }
+
+  get passwordEl() {
+    return this.shadowRoot.querySelector('#jsPassword');
+  }
+
+  get confirmPasswordEl() {
+    return this.shadowRoot.querySelector('#jsConfirmPassword');
+  }
+
+  get passwordFeedback() {
+    return this.shadowRoot.querySelector('#jsPasswordFeedback');
+  }
+
+
+  get feedbackTemplateElements() {
+    return {
+      nameRequired: this.shadowRoot.querySelector('#jsName-required'),
+      emailRequired: this.shadowRoot.querySelector('#jsEmail-required'),
+      emailFormat: this.shadowRoot.querySelector('#jsEmail-email'),
+      passwordRequired: this.shadowRoot.querySelector('#jsPassword-required'),
+      confirmPasswordRequired: this.shadowRoot.querySelector('#jsConfirmPassword-required'),
+      confirmPasswordMatch: this.shadowRoot.querySelector('#jsConfirmPassword-match'),
+    }
+  }
+  get style() {
+
+    // error - #F79682
+    // warning - #F7BC1C
+    // success - #1FE6A8
+
+    return `
+      <style>
+
+      .border--error{
+         border: none;
+         border: 2px solid #F79682;
+       }
+
+       .border--success{
+        border: none;
+        border: 2px solid #1FE6A8;
+      }
+
+      </style>
+    `
   }
 
   get template() {
     const template = document.createElement('template');
 
     template.innerHTML = `
+      ${this.style}
       <form class="form">  
-
+    
         <div class="form__group">
           <label>Nome completo</label>
           <input name="name" id="jsName" />
@@ -243,7 +296,7 @@ export default class NewAccountForm extends HTMLElement {
         </div>
   
         <div>
-          <button id="jsSubmit">Criar conta</buttom>
+          <button disabled id="jsSubmit">Criar conta</buttom>
         <div>
         </form>
     `;
@@ -257,7 +310,7 @@ window.customElements.define('new-account-form', NewAccountForm);
 
 
 
-/* 
+/*
 
 
 get template() {
@@ -273,7 +326,7 @@ get template() {
           height:10px;
           margin-right: .5rem;
           width:10px;
-        }  
+        }
 
         .input-feedback--valid{
           background-color: #1FE6A8;
@@ -301,4 +354,3 @@ get template() {
       </div>
     `;
   }*/
-  
