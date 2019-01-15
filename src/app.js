@@ -9,5 +9,5 @@ import './components/singup-feedback';
 import './components/input-feedback';
 import './components/password-feedback';
 import './components/password-strength';
-
+import './components/circles-spinner';
 

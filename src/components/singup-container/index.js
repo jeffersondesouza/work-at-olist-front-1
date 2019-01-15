@@ -82,7 +82,7 @@ export default class SignUpContainer extends HTMLElement {
 
         <div class="signup__body">
           <singup-form id="js-form"></singup-form>
-          <singup-feedback id="js-feedback"></singup-feedback>
+          <singup-feedback hidden id="js-feedback"></singup-feedback>
         </div>
         
 
