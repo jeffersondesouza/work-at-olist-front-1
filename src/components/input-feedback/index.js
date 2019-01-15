@@ -19,10 +19,12 @@ export default class InputFeedback extends HTMLElement {
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
-    console.log('input feed: ', newValue);
-    
     if(this.shadowRoot){
-      this.feedback = newValue;
+      
+      if(name==='value'){
+        this.feedback = newValue;
+      }
+    
     }
   }
 
