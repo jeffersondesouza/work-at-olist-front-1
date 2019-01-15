@@ -58,9 +58,6 @@ export default class NewAccountForm extends HTMLElement {
       emailRequired: this.shadowRoot.querySelector('#jsEmail-required'),
       emailFormat: this.shadowRoot.querySelector('#jsEmail-email'),
       passwordRequired: this.shadowRoot.querySelector('#jsPassword-required'),
-      passwordMin: this.shadowRoot.querySelector('#jsPassword-min'),
-      passwordNumber: this.shadowRoot.querySelector('#jsPassword-number'),
-      passwordChar: this.shadowRoot.querySelector('#jsPassword-char'),
       confirmPasswordRequired: this.shadowRoot.querySelector('#jsConfirmPassword-required'),
       confirmPasswordMatch: this.shadowRoot.querySelector('#jsConfirmPassword-match'),
     }
