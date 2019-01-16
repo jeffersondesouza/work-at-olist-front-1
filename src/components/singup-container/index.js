@@ -75,7 +75,7 @@ export default class SignUpContainer extends HTMLElement {
         }
         .signup__sub-title{
           line-height: 3px;
-          text-aling:center;
+          text-align: center;
           font-size: 2.2rem;
           margin-bottom:3.7rem;
         }
@@ -90,14 +90,14 @@ export default class SignUpContainer extends HTMLElement {
     template.innerHTML = `
       ${this.style}
       <div class="signup">      
-        <header>  
-          <h1 class="signup__title"><logo-type></logo-type></h1>
-          <h2 class="signup__sub-title">Crie sua Conta</h2>
-        </header>  
+        <h1 class="signup__title"><logo-type></logo-type></h1>
 
+        <div id="js-form" hidden>
+          <h2 class="signup__sub-title">Crie sua Conta</h2>
+          <singup-form ></singup-form>
+        </div>
         <div class="signup__body">
-          <singup-form id="js-form"></singup-form>
-          <singup-feedback hidden id="js-feedback"></singup-feedback>
+          <singup-feedback  id="js-feedback"></singup-feedback>
         </div>
         
 
