@@ -36,8 +36,8 @@ export default class SignUpContainer extends HTMLElement {
 
   onSubmit(value) {
     setTimeout(() => {
-      console.log({ value });
-      this.formEl.hidden = true;
+      console.log('Form Submited: ', { value });
+      this.formWrapEl.hidden = true;
       this.feedbackEl.hidden = false;
     }, 2000);
 
@@ -45,6 +45,10 @@ export default class SignUpContainer extends HTMLElement {
 
   get formEl() {
     return this.shadowRoot.querySelector('#js-form');
+  }
+
+  get formWrapEl() {
+    return this.shadowRoot.querySelector('#js-form-wrap');
   }
 
   get feedbackEl() {
@@ -92,14 +96,13 @@ export default class SignUpContainer extends HTMLElement {
       <div class="signup">      
         <h1 class="signup__title"><logo-type></logo-type></h1>
 
-        <div id="js-form" hidden>
+        <div id="js-form-wrap">
           <h2 class="signup__sub-title">Crie sua Conta</h2>
-          <singup-form ></singup-form>
+          <singup-form id="js-form"></singup-form>
         </div>
-        <div class="signup__body">
-          <singup-feedback  id="js-feedback"></singup-feedback>
-        </div>
-        
+
+        <singup-feedback hidden id="js-feedback"></singup-feedback>
+       
 
       </div>
     `;

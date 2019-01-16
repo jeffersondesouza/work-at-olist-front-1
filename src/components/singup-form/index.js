@@ -163,12 +163,6 @@ export default class NewAccountForm extends HTMLElement {
 
   onSubmit(e) {
     e.preventDefault();
-
-    this.dispatchEvent(new CustomEvent('onsubmit', {
-      detail: formHelper.getFormValue(this.formValue),
-    }));
-
-
    
 
     if (isValidForm(this.formValue)) {
