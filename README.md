@@ -1,5 +1,9 @@
-# Olist Challanger
+# Olist Challanger [LINK](https://work-at-olist-jeff-test.netlify.com/)
 
+
+Today, security is everything, but users still have the bad habit of creating accounts with weak passwords, and it is essential that we can offer the user ways to keep them safe. So, we must do our best to ensure the safety of our users.
+
+For this, you should implement a new account page, composed of Name, Email and Password with a strength measure indicator and Password confirmation. All these fields are required.
 
 ### Built With
  - Web Components
