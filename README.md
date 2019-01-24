@@ -1,100 +1,48 @@
-![Logo of the project](./images/logo.sample.png)
-
 # Olist Challanger
 
-A brief description of your project, what it is used for.
-
-## Installing / Getting started
-
-A quick introduction of the minimal setup you need to get a hello world up &
-running.
-
-```shell
-commands here
-```
-
-Here you should say what actually happens when you execute the code above.
-
-## Developing
 
 ### Built With
-List main libraries, frameworks used including versions (React, Angular etc...)
+ - Web Components
+ - Webpack
+ - Jest
 
 ### Prerequisites
-What is needed to set up the dev environment. For instance, global dependencies or any other tools. include download links.
+Make sure you have Node installed on you machine. Open the application folder on the terminal and run:
 
 
 ### Setting up Dev
 
-Here's a brief intro about what a developer must do in order to start developing
-the project further:
+Before run the application, make sure to install the project dependencies runnnig:
 
 ```shell
-git clone https://github.com/your/your-project.git
-cd your-project/
-packagemanager install
+npm install
 ```
 
-And state what happens step-by-step. If there is any virtual environment, local server or database feeder needed, explain here.
+### Run
+This command will run  the applicaton locally:
+```shell
+npm start
+```
 
-### Building
-
-If your project needs some additional steps for the developer to build the
-project after some code changes, state them here. for example:
+### Build
+The build command creates the ```dist``` folder creating the application bundle making some Javascript an CSS optimizations: 
 
 ```shell
-./configure
-make
-make install
+npm run build
 ```
-
-Here again you should state what actually happens when the code above gets
-executed.
-
-### Deploying / Publishing
-give instructions on how to build and release a new version
-In case there's some step you have to take that publishes this project to a
-server, this is the right time to state it.
-
-```shell
-packagemanager deploy your-project -s server.com -u username -p password
-```
-
-And again you'd need to tell what the previous code actually does.
-
-## Versioning
-
-We can maybe use [SemVer](http://semver.org/) for versioning. For the versions available, see the [link to tags on this repository](/tags).
-
-
-## Configuration
-
-Here you should write what are all of the configurations a user can enter when
-using the project.
 
 ## Tests
-
-Describe and show how to run the tests with code examples.
-Explain what these tests test and why.
+The application had use an BDD approach, so run the unit and integration test with thwe command:
 
 ```shell
-Give an example
+npm run test:u
 ```
 
-## Style guide
+Ypu also can check the tests coverage running:
 
-Explain your code style and show how to check it.
+```shell
+npm run test:co
+```
 
-## Api Reference
-
-If the api is external, link to api documentation. If not describe your api including authentication methods as well as explaining all the endpoints with their required parameters.
-
-
-## Database
-
-Explaining what database (and version) has been used. Provide download links.
-Documents your database design and schemas, relations etc... 
-
-## Licensing
-
-State what the license is and how to find the text version of the license.
+### Continuous Integration
+The project is configured with a CI workflow connecting the repositorie to [CircleCI](https://circleci.com) to run the tests and builds, and [Netlify](https://netlify.com) to automatic build the application.
